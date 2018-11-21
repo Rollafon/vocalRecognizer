@@ -4,7 +4,6 @@ import org.apache.commons.math3.linear.RealMatrix;
 public class Kppv implements Ikppv {
 	private RealMatrix data;
 	private RealMatrix label;
-	private int a;
 	
 	public Kppv(RealMatrix data, RealMatrix label) {
 		this.data = data;
