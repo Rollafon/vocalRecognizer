@@ -27,12 +27,12 @@ public class ACP implements IACP {
 	private List<Integer> getIndexesOfMaxValues(List<Double> eigenValues, int k) {
 		List<Pair> pairs = new ArrayList<>(eigenValues.size());
 		for (int i = 0 ; i < eigenValues.size() ; ++i) {
-			pairs.set(i, new Pair(eigenValues.get(i), i));
+			pairs.add(new Pair(eigenValues.get(i), i));
 		}
 		Collections.sort(pairs, (p1, p2) -> p1.value == p2.value ? 0 : (p1.value > p2.value ? 1 : -1));
 		List<Integer> indexes = new ArrayList<>(k);
 		for (int i = 0 ; i < k ; ++i) {
-			indexes.set(i, pairs.get(i).index);
+			indexes.add(pairs.get(i).index);
 		}
 		return indexes;
 	}
@@ -63,10 +63,16 @@ public class ACP implements IACP {
 		EigenDecomposition eigenDecomposition = new EigenDecomposition(cov);
 		RealMatrix matEigenValues = eigenDecomposition.getD();
 		RealMatrix matEigenVectors = eigenDecomposition.getV();
+
+		System.out.println("DIMS = " + cov.getColumnDimension() + " - " + cov.getRowDimension());
+		System.out.println("DIMS = " + matEigenValues.getColumnDimension() + " - " + matEigenValues.getRowDimension());
+		System.out.println("DIMS = " + matEigenVectors.getColumnDimension() + " - " + matEigenVectors.getRowDimension());
+		//System.out.println(matEigenValues);
+		//System.out.println(matEigenVectors);
 		
 		List<Double> eigenValues = new ArrayList<>(cov.getColumnDimension());
 		for (int i = 0 ; i < cov.getColumnDimension() ; ++i) {
-			eigenValues.set(i, matEigenValues.getEntry(i, i));
+			eigenValues.add(matEigenValues.getEntry(i, i));
 		}
 		
 		final int k = 3;
@@ -75,16 +81,30 @@ public class ACP implements IACP {
 		double[][] eigenVectors = new double[cov.getColumnDimension()][k];
 		for (int i = 0 ; i < k ; ++i) {
 			int index = indexesMaxValues.get(i);
-			eigenVectors[i] = matEigenVectors.getColumnVector(index).toArray();
+			double[] eigenVector = matEigenVectors.getColumnVector(index).toArray();
+			for (int j = 0 ; j < cov.getColumnDimension() ; ++j) {
+				eigenVectors[j][i] = eigenVector[j];
+			}
 		}
-		RealMatrix vects = new Array2DRowRealMatrix(eigenVectors);
 		
+		RealMatrix vects = new Array2DRowRealMatrix(eigenVectors);
+		System.out.println(base);
+		System.out.println(vects);
 		RealMatrix newBase = base.multiply(vects);
 		return newBase;
 	}
 	
 	public static void main(String args[]) {
 		IACP acp = new ACP();
-		RealMatrix base = new Array2DRowRealMatrix();
+		RealMatrix base = new Array2DRowRealMatrix(2, 13);
+		for (int i = 0 ; i < base.getRowDimension() ; ++i) {
+			for (int j = 0 ; j < base.getColumnDimension() ; ++j) {
+				base.setEntry(i, j, 0);
+			}
+		}
+		
+		RealMatrix newBase = acp.calcNewBase(base);
+		System.out.println(base);
+		System.out.println(newBase);
 	}
 }
