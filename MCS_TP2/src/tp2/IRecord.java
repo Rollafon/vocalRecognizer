@@ -6,7 +6,7 @@ public interface IRecord {
 	public static final int MFCCLength = 13;
 	
 	public String getPath();
-	public String getCommandName();
+	public Command getCommand();
 	public boolean isLoaded();
 	public MFCC getMfccMean();
 }

@@ -24,6 +24,9 @@ public class ACP implements IACP {
 		public double value;
 		public int index;
 	}
+	
+	private RealMatrix newBase;
+	
 	private List<Integer> getIndexesOfMaxValues(List<Double> eigenValues, int k) {
 		List<Pair> pairs = new ArrayList<>(eigenValues.size());
 		for (int i = 0 ; i < eigenValues.size() ; ++i) {
@@ -37,27 +40,7 @@ public class ACP implements IACP {
 		return indexes;
 	}
 
-	public RealMatrix loadBase(List<String> paths) {
-		if (paths.isEmpty()) {
-			throw new IllegalArgumentException("Cannot calculate base without files.");
-		}
-		
-		RealMatrix base = new Array2DRowRealMatrix(paths.size(), IRecord.MFCCLength);
-
-		for (int i = 0 ; i < base.getRowDimension() ; ++i) {
-			String path = paths.get(i);
-			IRecord record = new Record(path);
-			MFCC mfccMean = record.getMfccMean();
-			
-			for (int j = 0 ; j < base.getColumnDimension() ; ++j) {
-				double entry = mfccMean.getCoef(j);
-				base.setEntry(i, j, entry);
-			}
-		}
-		return base;
-	}
-	
-	public RealMatrix calcNewBase(RealMatrix base) {
+	private RealMatrix calcNewBase(RealMatrix base) {
 		RealMatrix cov = new Covariance(base).getCovarianceMatrix();
 		
 		EigenDecomposition eigenDecomposition = new EigenDecomposition(cov);
@@ -81,22 +64,26 @@ public class ACP implements IACP {
 			}
 		}
 		
-		RealMatrix vects = new Array2DRowRealMatrix(eigenVectors);
-		RealMatrix newBase = base.multiply(vects);
+		RealMatrix newBase = new Array2DRowRealMatrix(eigenVectors);
+		return newBase;
+	}
+
+	public ACP(IDataBase dataBase) {
+		newBase = calcNewBase(dataBase.getBase());
+		dataBase.multiplyBase(newBase);
+	}
+
+	public RealMatrix getNewBase() {
 		return newBase;
 	}
 	
 	public static void main(String args[]) {
-		IACP acp = new ACP();
+		IACP acp = new ACP(null);
 		RealMatrix base = new Array2DRowRealMatrix(2, 13);
 		for (int i = 0 ; i < base.getRowDimension() ; ++i) {
 			for (int j = 0 ; j < base.getColumnDimension() ; ++j) {
 				base.setEntry(i, j, 0);
 			}
 		}
-		
-		RealMatrix newBase = acp.calcNewBase(base);
-		System.out.println(base);
-		System.out.println(newBase);
 	}
 }

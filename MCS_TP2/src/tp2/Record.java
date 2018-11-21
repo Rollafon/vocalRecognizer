@@ -83,8 +83,8 @@ public class Record implements IRecord {
 	public String getPath() {
 		return path;
 	}
-	public String getCommandName() {
-		return command.toString();
+	public Command getCommand() {
+		return command;
 	}
 	public boolean isLoaded() {
 		return loaded;
