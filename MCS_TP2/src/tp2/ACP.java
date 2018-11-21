@@ -24,6 +24,7 @@ public class ACP implements IACP {
 		public double value;
 		public int index;
 	}
+	
 	private RealMatrix loadBase(List<String> paths) {
 		if (paths.isEmpty()) {
 			throw new IllegalArgumentException("Cannot calculate base without files.");
@@ -70,7 +71,7 @@ public class ACP implements IACP {
 			eigenValues.set(i, matEigenValues.getEntry(i, i));
 		}
 		
-		int k = 3;
+		final int k = 3;
 		List<Integer> indexesMaxValues = getIndexesOfMaxValues(eigenValues, k);
 		
 		double[][] eigenVectors = new double[cov.getColumnDimension()][k];
@@ -78,7 +79,9 @@ public class ACP implements IACP {
 			int index = indexesMaxValues.get(i);
 			eigenVectors[i] = matEigenVectors.getColumnVector(index).toArray();
 		}
-		RealMatrix newBase = new Array2DRowRealMatrix(eigenVectors);
+		RealMatrix vects = new Array2DRowRealMatrix(eigenVectors);
+		
+		RealMatrix newBase = base.multiply(vects);
 		return newBase;
 	}
 }
