@@ -1,9 +1,9 @@
-package tp2;
-
-import java.util.List;
+package tp2.acp;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
+
+import tp2.IDataBase;
 
 public class ACPIdentity implements IACP {
 	private RealMatrix newBase;

@@ -1,4 +1,4 @@
-package tp2;
+package tp2.acp;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.stat.correlation.Covariance;
 
-import fr.enseeiht.danck.voice_analyzer.MFCC;
+import tp2.IDataBase;
 
 /**
  * Class ACP
@@ -75,15 +75,5 @@ public class ACP implements IACP {
 
 	public RealMatrix getNewBase() {
 		return newBase;
-	}
-	
-	public static void main(String args[]) {
-		IACP acp = new ACP(null);
-		RealMatrix base = new Array2DRowRealMatrix(2, 13);
-		for (int i = 0 ; i < base.getRowDimension() ; ++i) {
-			for (int j = 0 ; j < base.getColumnDimension() ; ++j) {
-				base.setEntry(i, j, 0);
-			}
-		}
 	}
 }
