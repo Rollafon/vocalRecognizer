@@ -16,17 +16,10 @@ import tp2.IDataBase;
  * @author PC3
  */
 public class ACP implements IACP {
-	private class Pair {
-		Pair(double value, int index) {
-			this.value = value;
-			this.index = index;
-		}
-		public double value;
-		public int index;
-	}
-	
+	// ATTRIBUTES
 	private RealMatrix newBase;
 	
+	// PRIVATE METHODS
 	private List<Integer> getIndexesOfMaxValues(List<Double> eigenValues, int k) {
 		List<Pair> pairs = new ArrayList<>(eigenValues.size());
 		for (int i = 0 ; i < eigenValues.size() ; ++i) {
@@ -68,12 +61,29 @@ public class ACP implements IACP {
 		return newBase;
 	}
 
+	// METHODS
+	/**
+	 * Constructor
+	 * @param dataBase
+	 */
 	public ACP(IDataBase dataBase) {
 		newBase = calcNewBase(dataBase.getBase());
 		dataBase.multiplyBase(newBase);
 	}
-
+	
+	/**
+	 * Getteur for throw
+	 */
 	public RealMatrix getNewBase() {
 		return newBase;
+	}
+	
+	private class Pair {
+		Pair(double value, int index) {
+			this.value = value;
+			this.index = index;
+		}
+		public double value;
+		public int index;
 	}
 }
