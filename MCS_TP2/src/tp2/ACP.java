@@ -37,7 +37,7 @@ public class ACP implements IACP {
 	}
 	
 	private int[] getIndexesOfMaxValues(double[] eigenValues, int k) {
-		
+		int a = 0;
 		
 		return null; // TODO
 	}
