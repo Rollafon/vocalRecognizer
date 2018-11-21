@@ -1,5 +1,10 @@
 package tp2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
@@ -15,7 +20,14 @@ import fr.enseeiht.danck.voice_analyzer.MFCC;
  * @author PC3
  */
 public class ACP implements IACP {
-	
+	private class Pair {
+		Pair(double value, int index) {
+			this.value = value;
+			this.index = index;
+		}
+		public double value;
+		public int index;
+	}
 	private RealMatrix loadBase(List<String> paths) {
 		if (paths.isEmpty()) {
 			throw new IllegalArgumentException("Cannot calculate base without files.");
@@ -37,7 +49,12 @@ public class ACP implements IACP {
 	}
 	
 	private int[] getIndexesOfMaxValues(double[] eigenValues, int k) {
-		int a = 0;
+		List<Pair> pairs = new ArrayList<>(eigenValues.length);
+		for (int i = 0 ; i < eigenValues.length ; ++i) {
+			pairs.set(i, new Pair(eigenValues[i], i));
+		}
+		
+		Collections.sort(pairs, (p1, p2) -> p1.value == p2.value ? 0 : (p1.value > p2.value ? 1 : -1));
 		
 		return null; // TODO
 	}
