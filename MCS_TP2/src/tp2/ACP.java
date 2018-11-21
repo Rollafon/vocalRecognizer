@@ -24,8 +24,20 @@ public class ACP implements IACP {
 		public double value;
 		public int index;
 	}
-	
-	private RealMatrix loadBase(List<String> paths) {
+	private List<Integer> getIndexesOfMaxValues(List<Double> eigenValues, int k) {
+		List<Pair> pairs = new ArrayList<>(eigenValues.size());
+		for (int i = 0 ; i < eigenValues.size() ; ++i) {
+			pairs.set(i, new Pair(eigenValues.get(i), i));
+		}
+		Collections.sort(pairs, (p1, p2) -> p1.value == p2.value ? 0 : (p1.value > p2.value ? 1 : -1));
+		List<Integer> indexes = new ArrayList<>(k);
+		for (int i = 0 ; i < k ; ++i) {
+			indexes.set(i, pairs.get(i).index);
+		}
+		return indexes;
+	}
+
+	public RealMatrix loadBase(List<String> paths) {
 		if (paths.isEmpty()) {
 			throw new IllegalArgumentException("Cannot calculate base without files.");
 		}
@@ -45,21 +57,7 @@ public class ACP implements IACP {
 		return base;
 	}
 	
-	private List<Integer> getIndexesOfMaxValues(List<Double> eigenValues, int k) {
-		List<Pair> pairs = new ArrayList<>(eigenValues.size());
-		for (int i = 0 ; i < eigenValues.size() ; ++i) {
-			pairs.set(i, new Pair(eigenValues.get(i), i));
-		}
-		Collections.sort(pairs, (p1, p2) -> p1.value == p2.value ? 0 : (p1.value > p2.value ? 1 : -1));
-		List<Integer> indexes = new ArrayList<>(k);
-		for (int i = 0 ; i < k ; ++i) {
-			indexes.set(i, pairs.get(i).index);
-		}
-		return indexes;
-	}
-	
-	public RealMatrix calcNewBase(List<String> paths) {
-		RealMatrix base = loadBase(paths);
+	public RealMatrix calcNewBase(RealMatrix base) {
 		RealMatrix cov = new Covariance(base).getCovarianceMatrix();
 		
 		EigenDecomposition eigenDecomposition = new EigenDecomposition(cov);
@@ -83,5 +81,10 @@ public class ACP implements IACP {
 		
 		RealMatrix newBase = base.multiply(vects);
 		return newBase;
+	}
+	
+	public static void main(String args[]) {
+		IACP acp = new ACP();
+		RealMatrix base = new Array2DRowRealMatrix();
 	}
 }
