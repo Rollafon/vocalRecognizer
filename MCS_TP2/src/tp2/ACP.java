@@ -1,16 +1,12 @@
 package tp2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.stat.correlation.Covariance;
 
 import fr.enseeiht.danck.voice_analyzer.MFCC;
@@ -28,6 +24,7 @@ public class ACP implements IACP {
 		public double value;
 		public int index;
 	}
+	
 	private RealMatrix loadBase(List<String> paths) {
 		if (paths.isEmpty()) {
 			throw new IllegalArgumentException("Cannot calculate base without files.");
@@ -74,16 +71,17 @@ public class ACP implements IACP {
 			eigenValues.set(i, matEigenValues.getEntry(i, i));
 		}
 		
-		int k = 1; // TODO
+		final int k = 3;
 		List<Integer> indexesMaxValues = getIndexesOfMaxValues(eigenValues, k);
 		
-		RealVector[] eigenVectors = new RealVector[k];
+		double[][] eigenVectors = new double[cov.getColumnDimension()][k];
 		for (int i = 0 ; i < k ; ++i) {
 			int index = indexesMaxValues.get(i);
-			eigenVectors[i] = matEigenVectors.getColumnVector(index);
+			eigenVectors[i] = matEigenVectors.getColumnVector(index).toArray();
 		}
+		RealMatrix vects = new Array2DRowRealMatrix(eigenVectors);
 		
-		
-		return null; // TODO
+		RealMatrix newBase = base.multiply(vects);
+		return newBase;
 	}
 }
