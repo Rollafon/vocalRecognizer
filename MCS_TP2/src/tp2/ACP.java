@@ -63,12 +63,6 @@ public class ACP implements IACP {
 		EigenDecomposition eigenDecomposition = new EigenDecomposition(cov);
 		RealMatrix matEigenValues = eigenDecomposition.getD();
 		RealMatrix matEigenVectors = eigenDecomposition.getV();
-
-		System.out.println("DIMS = " + cov.getColumnDimension() + " - " + cov.getRowDimension());
-		System.out.println("DIMS = " + matEigenValues.getColumnDimension() + " - " + matEigenValues.getRowDimension());
-		System.out.println("DIMS = " + matEigenVectors.getColumnDimension() + " - " + matEigenVectors.getRowDimension());
-		//System.out.println(matEigenValues);
-		//System.out.println(matEigenVectors);
 		
 		List<Double> eigenValues = new ArrayList<>(cov.getColumnDimension());
 		for (int i = 0 ; i < cov.getColumnDimension() ; ++i) {
@@ -88,8 +82,6 @@ public class ACP implements IACP {
 		}
 		
 		RealMatrix vects = new Array2DRowRealMatrix(eigenVectors);
-		System.out.println(base);
-		System.out.println(vects);
 		RealMatrix newBase = base.multiply(vects);
 		return newBase;
 	}
