@@ -48,18 +48,17 @@ public class ACP implements IACP {
 		return base;
 	}
 	
-	private List<Integer> getIndexesOfMaxValues(double[] eigenValues, int k) {
-		List<Pair> pairs = new ArrayList<>(eigenValues.length);
-		for (int i = 0 ; i < eigenValues.length ; ++i) {
-			pairs.set(i, new Pair(eigenValues[i], i));
+	private List<Integer> getIndexesOfMaxValues(List<Double> eigenValues, int k) {
+		List<Pair> pairs = new ArrayList<>(eigenValues.size());
+		for (int i = 0 ; i < eigenValues.size() ; ++i) {
+			pairs.set(i, new Pair(eigenValues.get(i), i));
 		}
-		
 		Collections.sort(pairs, (p1, p2) -> p1.value == p2.value ? 0 : (p1.value > p2.value ? 1 : -1));
 		List<Integer> indexes = new ArrayList<>(k);
 		for (int i = 0 ; i < k ; ++i) {
 			indexes.set(i, pairs.get(i).index);
 		}
-		return indexes; // TODO
+		return indexes;
 	}
 	
 	public RealMatrix calcNewBase(List<String> paths) {
@@ -70,9 +69,9 @@ public class ACP implements IACP {
 		RealMatrix matEigenValues = eigenDecomposition.getD();
 		RealMatrix matEigenVectors = eigenDecomposition.getV();
 		
-		double[] eigenValues = new double[cov.getColumnDimension()];
+		List<Double> eigenValues = new ArrayList<>(cov.getColumnDimension());
 		for (int i = 0 ; i < cov.getColumnDimension() ; ++i) {
-			eigenValues[i] = matEigenValues.getEntry(i, i);
+			eigenValues.set(i, matEigenValues.getEntry(i, i));
 		}
 		
 		int k = 1;
