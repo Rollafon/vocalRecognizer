@@ -74,7 +74,7 @@ public class ACP implements IACP {
 			eigenValues.set(i, matEigenValues.getEntry(i, i));
 		}
 		
-		int k = 1;
+		int k = 1; // TODO
 		List<Integer> indexesMaxValues = getIndexesOfMaxValues(eigenValues, k);
 		
 		RealVector[] eigenVectors = new RealVector[k];
