@@ -8,12 +8,15 @@ import tp1.myMFCCdistance;
 public class Kppv implements Ikppv {
 	private IDataBase datas; // Database
 	private String[] label;	// Labels of each record of the database (same sequence)
-	
-	private IDataBase tests;
-	private int k;
+	private int k;	// Number of neighbors to consider
 	
 	myMFCCdistance distCalc = new myMFCCdistance();
 
+	/**
+	 * Constructor
+	 * @param datas: the database to consider to recognize commands
+	 * @param label: the array of labels corresponding to the values of database
+	 */
 	public Kppv(IDataBase datas, String[] label) {
 		this.datas = datas;
 		this.label = label;
@@ -21,21 +24,22 @@ public class Kppv implements Ikppv {
 	
 	/**
 	 * Evaluate the distances between each point of the data base and the given test
-	 * @return the array of distances
+	 * @param test: the data test to be compare
+	 * @return the array of distances (lines represent the tests datas, and columns the database)
 	 */
-	private RealMatrix evalDistances() {
-		// TODO
-		double[][] res = new double[datas.getBase().getRowDimension()][tests.getBase().getRowDimension()];
-		for (int j = 0; j < res.length; ++j) {
-			for (int i = 0; i < res.length; ++i) {
-				res[i][j] = distCalc.distance(datas.getBase().getRow(i), datas.getBase().getRow(j));
-			}
-		}
+	private double[] evalDistances(double[] test) {
+		double[] res = new double[datas.getBase().getRowDimension()];
 		
-		return new Array2DRowRealMatrix(res);
+		for (int i = 0; i < datas.getBase().getRowDimension(); ++i)
+			res[i] = distCalc.distance(datas.getBase().getRow(i), test);
+		
+		return res;
 	}
-	
-	public String searchLabel(IDataBase tests, int k) {
-		return "";
+
+	@Override
+	public String searchLabel(double[] test, int k) {
+		double[] distances = evalDistances(test);
+		
+		return null;
 	}
 }
