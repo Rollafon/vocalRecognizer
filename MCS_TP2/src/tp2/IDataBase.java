@@ -9,7 +9,7 @@ public interface IDataBase {
 	
 	public double getValue(int i, int j);
 	public double[] getMfccMean(int i);
-	public RealMatrix getData();
+	public RealMatrix getBase();
 	
 	public int getNbFiles();
 	

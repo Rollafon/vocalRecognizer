@@ -48,7 +48,7 @@ public class DataBase implements IDataBase {
 	public double[] getMfccMean(int i) {
 		return data.getRow(i);
 	}
-	public RealMatrix getData() {
+	public RealMatrix getBase() {
 		return data;
 	}
 	
