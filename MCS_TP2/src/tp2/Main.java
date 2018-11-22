@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import tp1.myMFCCdistance;
+
 public class Main {
 	public static List<String> getFilepathsFromDir(String dirpath) {
 		File dir = new File(dirpath);
@@ -19,14 +21,14 @@ public class Main {
 	public static void main(String[] args) {
 		String dirpath = "./resources/refs1";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath);
-		IDataBase dataBase = new DataBase(refsFilepaths);
-		System.out.println("Database = (" + dataBase.getNbFiles() + "," + dataBase.getMFCCSize() + ")");		
-		
-		
-		//Ikppv kppv = new Kppv(dataBase); // TODO
+		IDataBase references = new DataBase(refsFilepaths);	
 		
 		String testpath = "./resources/tests1";
 		List<String> testsFilepaths = getFilepathsFromDir(testpath);
+		IDataBase tests = new DataBase(testsFilepaths);
 		
+		IRecognizer dtwRecognizer = new DTW(references, new myMFCCdistance());
+		IConfusionMatrix matrix = new ConfusionMatrix(references, tests, dtwRecognizer);
+		System.out.println(matrix);
 	}
 }

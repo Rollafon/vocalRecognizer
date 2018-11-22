@@ -1,6 +1,6 @@
 package tp2;
 
-public class ConfusionMatrix {
+public class ConfusionMatrix implements IConfusionMatrix {
 	private int[][] matrix;
 	private float errorRate;
 	
@@ -25,8 +25,16 @@ public class ConfusionMatrix {
 		}
 		errorRate /= (float)(tests.getNbFiles());
 	}
-	
-	public float getErrorRate() {
-		return errorRate;
+
+	public String toString() {
+		StringBuilder build = new StringBuilder();
+		for (int i = 0 ; i < matrix.length ; ++i) {
+			for (int j = 0 ; j < matrix[i].length ; ++j) {
+				build.append(matrix[i][j] + " ");
+			}
+			build.append("\n");
+		}
+		build.append("Error rate = " + errorRate + "\n");
+		return build.toString();
 	}
 }

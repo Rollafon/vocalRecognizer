@@ -6,8 +6,6 @@ import java.util.List;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 
-import fr.enseeiht.danck.voice_analyzer.MFCC;
-
 public class DataBase implements IDataBase {
 	private RealMatrix data;
 	private List<IRecord> records;
