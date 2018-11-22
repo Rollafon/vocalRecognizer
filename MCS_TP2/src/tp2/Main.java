@@ -11,7 +11,7 @@ public class Main {
 		
 		List<String> filepaths = new ArrayList<>(files.length);
 		for (File f : files) {
-			filepaths.add(f.getName());
+			filepaths.add(dir.getPath() + "/" + f.getName());
 		}
 		return filepaths;
 	}
@@ -20,12 +20,13 @@ public class Main {
 		String dirpath = "./resources/database1";
 		List<String> dataBaseFilepaths = getFilepathsFromDir(dirpath);
 		IDataBase dataBase = new DataBase(dataBaseFilepaths);
+		System.out.println("Database = (" + dataBase.getNbFiles() + "," + dataBase.getMFCCSize() + ")");		
 		
-		Ikppv kppv = new Kppv(dataBase);
+		
+		//Ikppv kppv = new Kppv(dataBase); // TODO
 		
 		String testpath = "./resources/tests1";
 		List<String> testsFilepaths = getFilepathsFromDir(testpath);
-		
 		
 	}
 }

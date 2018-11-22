@@ -44,4 +44,12 @@ public class DataBase implements IDataBase {
 	public RealMatrix getBase() {
 		return base;
 	}
+	
+	public int getNbFiles() {
+		return base.getRowDimension();
+	}
+	
+	public int getMFCCSize() {
+		return base.getColumnDimension();
+	}
 }

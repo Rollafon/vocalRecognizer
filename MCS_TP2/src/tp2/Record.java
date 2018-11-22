@@ -25,6 +25,9 @@ public class Record implements IRecord {
 	 */
 	public Record(String path) {
 		this.path = path;
+		if (!(new File(path).exists())) {
+			throw new IllegalArgumentException("File \"" + path + "\" does not exists.");
+		}
 		this.mfccMean = null;
 		this.loaded = false;
 		this.command = pathToCommand(path);		
@@ -33,11 +36,11 @@ public class Record implements IRecord {
 	
 	private Command pathToCommand(String path) {
 		String commandName = new File(path).getName();
-		int indexOfPt = commandName.lastIndexOf(".");
+		int indexOfPt = commandName.lastIndexOf(".") + 1;
 		if (indexOfPt != -1) {
 			commandName = commandName.substring(0, indexOfPt);
 		}
-		int indexOfUnd = commandName.lastIndexOf("_");
+		int indexOfUnd = commandName.lastIndexOf("_") + 1;
 		if (indexOfUnd != -1) {
 			commandName = commandName.substring(indexOfUnd, commandName.length()-1);
 		}

@@ -8,4 +8,8 @@ public interface IDataBase {
 	public Command getCommand(int i);
 	
 	public RealMatrix getBase();
+	
+	public int getNbFiles();
+	
+	public int getMFCCSize();
 }

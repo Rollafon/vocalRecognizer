@@ -1,5 +1,6 @@
 package tp2;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 
 import tp1.myMFCCdistance;
@@ -31,10 +32,10 @@ public class Kppv implements Ikppv {
 			}
 		}
 		
-		return res;
+		return new Array2DRowRealMatrix(res);
 	}
 	
 	public String searchLabel(IDataBase tests, int k) {
-		
+		return "";
 	}
 }

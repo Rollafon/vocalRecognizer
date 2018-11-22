@@ -7,6 +7,6 @@ public interface Ikppv {
 	 * @param k
 	 * @return the corresponding label
 	 */
-	public String searchLabel(int k);
+	public String searchLabel(IDataBase tests, int k);
 	
 }
