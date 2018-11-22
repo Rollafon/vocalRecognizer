@@ -14,7 +14,7 @@ public class DataBase implements IDataBase {
 	
 	public DataBase(List<String> paths) {
 		if (paths.isEmpty()) {
-			throw new IllegalArgumentException("Cannot calculate base without files.");
+			throw new IllegalArgumentException("Cannot create base without files.");
 		}
 		
 		this.data = new Array2DRowRealMatrix(paths.size(), IRecord.MFCCLength);
@@ -40,6 +40,9 @@ public class DataBase implements IDataBase {
 	public ICommand getCommand(int i) {
 		return records.get(i).getCommand();
 	}
+	public IRecord getRecord(int i) {
+		return records.get(i);
+	}
 	
 	public double getValue(int i, int j) {
 		return data.getEntry(i,j);
@@ -48,6 +51,7 @@ public class DataBase implements IDataBase {
 	public double[] getMfccMean(int i) {
 		return data.getRow(i);
 	}
+	
 	public RealMatrix getBase() {
 		return data;
 	}

@@ -8,6 +8,7 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 
 import fr.enseeiht.danck.voice_analyzer.Extractor;
+import fr.enseeiht.danck.voice_analyzer.Field;
 import fr.enseeiht.danck.voice_analyzer.MFCC;
 import fr.enseeiht.danck.voice_analyzer.WindowMaker;
 import tp1.MultipleFileWindowMaker;
@@ -20,6 +21,7 @@ public class Record implements IRecord {
 	private String path;
 	private ICommand command;
 	private boolean loaded;
+	private Field field;
 	private MFCC mfccMean;
 	
 	/**
@@ -81,6 +83,7 @@ public class Record implements IRecord {
 				signals[i] /= (double) mfccs.length;
 			}
 			
+			field = new Field(mfccs);
 			mfccMean = new MFCC(coefs, signals);
 			loaded = true;
 			
@@ -105,5 +108,8 @@ public class Record implements IRecord {
 			coefs[i] = mfccMean.getCoef(i);
 		}
 		return coefs;
+	}
+	public Field getField() {
+		return field;
 	}
 }

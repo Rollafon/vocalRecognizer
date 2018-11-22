@@ -6,6 +6,7 @@ public interface IDataBase {
 	public void multiplyData(RealMatrix newBase);
 	
 	public ICommand getCommand(int i);
+	public IRecord getRecord(int i);
 	
 	public double getValue(int i, int j);
 	public double[] getMfccMean(int i);
