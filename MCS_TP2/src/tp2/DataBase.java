@@ -9,8 +9,8 @@ import org.apache.commons.math3.linear.RealMatrix;
 import fr.enseeiht.danck.voice_analyzer.MFCC;
 
 public class DataBase implements IDataBase {
-	private List<Command> commands;
 	private RealMatrix base;
+	private List<IRecord> records;
 	
 	public DataBase(List<String> paths) {
 		if (paths.isEmpty()) {
@@ -18,12 +18,12 @@ public class DataBase implements IDataBase {
 		}
 		
 		this.base = new Array2DRowRealMatrix(paths.size(), IRecord.MFCCLength);
-		this.commands = new ArrayList<>(paths.size());
+		this.records = new ArrayList<>(paths.size());
 		
 		for (int i = 0 ; i < base.getRowDimension() ; ++i) {
 			String path = paths.get(i);
 			IRecord record = new Record(path);
-			commands.add(record.getCommand());
+			records.add(record);
 			MFCC mfccMean = record.getMfccMean();
 			
 			for (int j = 0 ; j < base.getColumnDimension() ; ++j) {
@@ -38,7 +38,7 @@ public class DataBase implements IDataBase {
 	}
 	
 	public Command getCommand(int i) {
-		return commands.get(i);
+		return records.get(i).getCommand();
 	}
 	
 	public RealMatrix getBase() {

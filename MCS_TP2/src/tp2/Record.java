@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
+
 import fr.enseeiht.danck.voice_analyzer.Extractor;
 import fr.enseeiht.danck.voice_analyzer.MFCC;
 import fr.enseeiht.danck.voice_analyzer.WindowMaker;
@@ -98,5 +101,12 @@ public class Record implements IRecord {
 	}
 	public MFCC getMfccMean() {
 		return mfccMean;
+	}
+	public RealMatrix getMfccMeanAsMatrix() {
+		double[] coefs = new double[mfccMean.getLength()];
+		for (int i = 0 ; i < coefs.length ; ++i) {
+			coefs[i] = mfccMean.getCoef(i);
+		}
+		return new Array2DRowRealMatrix(coefs);
 	}
 }

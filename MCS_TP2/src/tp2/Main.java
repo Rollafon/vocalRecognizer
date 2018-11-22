@@ -17,9 +17,9 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		String dirpath = "./resources/database1";
-		List<String> dataBaseFilepaths = getFilepathsFromDir(dirpath);
-		IDataBase dataBase = new DataBase(dataBaseFilepaths);
+		String dirpath = "./resources/refs1";
+		List<String> refsFilepaths = getFilepathsFromDir(dirpath);
+		IDataBase dataBase = new DataBase(refsFilepaths);
 		System.out.println("Database = (" + dataBase.getNbFiles() + "," + dataBase.getMFCCSize() + ")");		
 		
 		
