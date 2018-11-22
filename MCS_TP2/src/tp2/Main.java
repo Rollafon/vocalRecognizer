@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp1.MFCCDistance;
-import tp1.myMFCCdistance;
 import tp2.recognizers.DTW;
 import tp2.recognizers.IRecognizer;
 import tp2.recognizers.KPPV;

@@ -15,7 +15,11 @@ public class DTW extends DTWHelper implements IRecognizer {
 	private float w2;
 	
 	private float min3(float a, float b, float c) {
-		return a > b ? (a > c ? a : c) : (b > c ? b : c);
+		if (a > b) {
+			return b > c ? c : b;
+		} else {
+			return a > c ? c : a;
+		}
 	}
 	
 	public float DTWDistance(Field unknown, Field known) {
