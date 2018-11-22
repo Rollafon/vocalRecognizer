@@ -5,7 +5,7 @@ public interface Ikppv {
 	/**
 	 * Search the nearest label
 	 * @param k
-	 * @return
+	 * @return the corresponding label
 	 */
 	public String searchLabel(int k);
 	

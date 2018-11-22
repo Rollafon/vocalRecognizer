@@ -10,6 +10,14 @@ public class myMFCCdistance extends MFCCHelper {
 		
 		return 0;
 	}
+	
+	public float distance(double[] base, double[] test) {
+		float sqSum = 0;
+		for(int i = 0 ; i < base.length ; ++i) {
+			sqSum += (base[i] - test[i]) * (base[i] - test[i]);
+		}
+		return (float) Math.sqrt(sqSum);
+	}
 
 	@Override
 	public float norm(MFCC mfcc) {
