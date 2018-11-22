@@ -1,7 +1,7 @@
 package tp2;
 
 public class Command {
-	private static final String commands[] = {
+	public static final String[] All = {
 		"arretetoi", 
 		"atterrissage",
 		"avance", 
@@ -16,14 +16,13 @@ public class Command {
 		"tournedroite",
 		"tournegauche"
 	};
-	
 	private int indCommand;
 	
 	public Command(String command) {
 		boolean found = false;
 		int i = 0;
-		for ( ; i < commands.length && !found ; ++i) {
-			found = (commands[i].equals(command));
+		for ( ; i < All.length && !found ; ++i) {
+			found = (All[i].equals(command));
 		}
 		if (!found) {
 			throw new IllegalArgumentException("Unknown command \"" + command + "\"");
@@ -32,6 +31,9 @@ public class Command {
 	}
 	
 	public String toString() {
-		return commands[indCommand];
+		return All[indCommand];
+	}
+	public int getIndex() {
+		return indCommand;
 	}
 }

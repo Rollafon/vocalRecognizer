@@ -17,7 +17,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		String dirpath = "./resources/database";
+		String dirpath = "./resources/database1";
 		List<String> dataBaseFilepaths = getFilepathsFromDir(dirpath);
 		IDataBase dataBase = new DataBase(dataBaseFilepaths);
 		
@@ -25,5 +25,7 @@ public class Main {
 		
 		String testpath = "./resources/tests1";
 		List<String> testsFilepaths = getFilepathsFromDir(testpath);
+		
+		
 	}
 }
