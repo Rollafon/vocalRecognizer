@@ -39,10 +39,12 @@ public class Record implements IRecord {
 	
 	private Command pathToCommand(String path) {
 		String commandName = new File(path).getName();
+		// Extract file extension after '.'
 		int indexOfPt = commandName.lastIndexOf(".") + 1;
 		if (indexOfPt != -1) {
 			commandName = commandName.substring(0, indexOfPt);
 		}
+		// Extract prefix before '_'
 		int indexOfUnd = commandName.lastIndexOf("_") + 1;
 		if (indexOfUnd != -1) {
 			commandName = commandName.substring(indexOfUnd, commandName.length()-1);
@@ -55,12 +57,12 @@ public class Record implements IRecord {
 	    files.add(path);
 	    WindowMaker windowMaker;
 		Extractor extractor = Extractor.getExtractor();
-		MFCC[] mfccs = new MFCC[IRecord.MFCCLength];
+		MFCC[] mfccs = new MFCC[IRecord.NB_MFCC_FOR_FILE];
 	    
 		try {
 			windowMaker = new MultipleFileWindowMaker(files);
 		    // Extract MFCC from file
-	        for (int i = 0; i < mfccs.length; i++) {
+	        for (int i = 0 ; i < mfccs.length ; i++) {
 	            mfccs[i] = extractor.nextMFCC(windowMaker);
 	        }
 			// Calc mean mfcc

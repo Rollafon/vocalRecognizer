@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp1.myMFCCdistance;
+import tp2.recognizers.DTW;
+import tp2.recognizers.IRecognizer;
+import tp2.recognizers.KPPV;
 
 public class Main {
 	public static List<String> getFilepathsFromDir(String dirpath) {
@@ -28,7 +31,11 @@ public class Main {
 		IDataBase tests = new DataBase(testsFilepaths);
 		
 		IRecognizer dtwRecognizer = new DTW(references, new myMFCCdistance());
-		IConfusionMatrix matrix = new ConfusionMatrix(references, tests, dtwRecognizer);
-		System.out.println(matrix);
+		IConfusionMatrix matrix1 = new ConfusionMatrix(references, tests, dtwRecognizer);
+		System.out.println(matrix1);
+		
+		IRecognizer kppvRecognizer = new KPPV(references, Command.All);
+		IConfusionMatrix matrix2 = new ConfusionMatrix(references, tests, kppvRecognizer);
+		System.out.println(matrix2);
 	}
 }

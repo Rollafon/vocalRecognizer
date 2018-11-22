@@ -1,11 +1,15 @@
-package tp2;
+package tp2.recognizers;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import tp1.myMFCCdistance;
+import tp2.Command;
+import tp2.ICommand;
+import tp2.IDataBase;
+import tp2.IRecord;
 
-public class Kppv implements Ikppv {
+public class KPPV implements IRecognizer {
 	private IDataBase datas; // Database
 	private String[] label; // Labels of each record of the database (same sequence)
 	private int k; // Number of neighbors to consider
@@ -32,7 +36,7 @@ public class Kppv implements Ikppv {
 	 * @param label:
 	 *            the array of labels corresponding to the values of database
 	 */
-	public Kppv(IDataBase datas, String[] label) {
+	public KPPV(IDataBase datas, String[] label) {
 		this.datas = datas;
 		this.label = label;
 	}
@@ -79,7 +83,8 @@ public class Kppv implements Ikppv {
 	}
 
 	@Override
-	public String searchLabel(double[] test, int k) {
+	public ICommand searchCommand(IRecord record, int k) {
+		double[] test = record.getMfccMean();
 		DistToLab[] distances = evalDistances(test);
 		DistToLab[] kNearest = kNearest(distances);
 		
@@ -103,6 +108,7 @@ public class Kppv implements Ikppv {
 			}
 		}
 		
-		return recognizedLabel;
+		return new Command(recognizedLabel);
 	}
+
 }

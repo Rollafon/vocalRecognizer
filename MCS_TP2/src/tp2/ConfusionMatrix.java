@@ -1,5 +1,7 @@
 package tp2;
 
+import tp2.recognizers.IRecognizer;
+
 public class ConfusionMatrix implements IConfusionMatrix {
 	private int[][] matrix;
 	private float errorRate;
@@ -16,7 +18,7 @@ public class ConfusionMatrix implements IConfusionMatrix {
 		final int k = 1;
 		for (int i = 0 ; i < tests.getNbFiles() ; ++i) {
 			ICommand commandFound = recognizer.searchCommand(tests.getRecord(i), k);
-			ICommand commandFile = tests.getCommand(i);			
+			ICommand commandFile = tests.getCommand(i);
 			matrix[commandFound.getIndex()][commandFile.getIndex()]++;
 			
 			if (commandFound.getIndex() != commandFile.getIndex()) {
@@ -34,7 +36,7 @@ public class ConfusionMatrix implements IConfusionMatrix {
 			}
 			build.append("\n");
 		}
-		build.append("Error rate = " + errorRate + "\n");
+		build.append("Error rate = " + (errorRate*100) + " % \n");
 		return build.toString();
 	}
 }
