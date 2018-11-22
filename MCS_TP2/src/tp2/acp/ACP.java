@@ -68,7 +68,7 @@ public class ACP implements IACP {
 	 */
 	public ACP(IDataBase dataBase) {
 		newBase = calcNewBase(dataBase.getBase());
-		dataBase.multiplyBase(newBase);
+		dataBase.multiplyData(newBase);
 	}
 	
 	/**

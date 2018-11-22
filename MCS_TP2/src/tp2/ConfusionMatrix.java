@@ -14,6 +14,7 @@ public class ConfusionMatrix {
 		}
 		
 		this.reference = reference;
+		this.errorRate = 0.f;
 		for (int i = 0 ; i < tests.getNbFiles() ; ++i) {
 			for (int j = 0 ; j < tests.getMFCCSize() ; ++i) {
 				
