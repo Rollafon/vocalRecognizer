@@ -37,7 +37,7 @@ public class DataBase implements IDataBase {
 		data = data.multiply(newBase);
 	}
 	
-	public Command getCommand(int i) {
+	public ICommand getCommand(int i) {
 		return records.get(i).getCommand();
 	}
 	

@@ -18,7 +18,7 @@ import tp1.MultipleFileWindowMaker;
  */
 public class Record implements IRecord {	
 	private String path;
-	private Command command;
+	private ICommand command;
 	private boolean loaded;
 	private MFCC mfccMean;
 	
@@ -93,7 +93,7 @@ public class Record implements IRecord {
 	public String getPath() {
 		return path;
 	}
-	public Command getCommand() {
+	public ICommand getCommand() {
 		return command;
 	}
 	public boolean isLoaded() {

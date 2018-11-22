@@ -1,6 +1,6 @@
 package tp2;
 
-public class Command {
+public class Command implements ICommand {
 	public static final String[] All = {
 		"arretetoi", 
 		"atterrissage",
