@@ -8,7 +8,7 @@ public class Kppv implements Ikppv {
 	private IDataBase datas; // Database
 	private String[] label;	// Labels of each record of the database (same sequence)
 	
-	private IDataBase tests; // TODO : type of expressions
+	private IDataBase tests;
 	private int k;
 	
 	myMFCCdistance distCalc = new myMFCCdistance();

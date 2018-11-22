@@ -8,7 +8,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 
 import fr.enseeiht.danck.voice_analyzer.MFCC;
 
-public class DataBase {
+public class DataBase implements IDataBase {
 	private List<Command> commands;
 	private RealMatrix base;
 	

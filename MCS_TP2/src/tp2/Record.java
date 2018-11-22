@@ -37,6 +37,10 @@ public class Record implements IRecord {
 		if (indexOfPt != -1) {
 			commandName = commandName.substring(0, indexOfPt);
 		}
+		int indexOfUnd = commandName.lastIndexOf("_");
+		if (indexOfUnd != -1) {
+			commandName = commandName.substring(indexOfUnd, commandName.length()-1);
+		}
 		return new Command(commandName);
 	}
 	
