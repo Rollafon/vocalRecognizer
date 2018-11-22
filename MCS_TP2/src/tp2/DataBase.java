@@ -9,7 +9,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 import fr.enseeiht.danck.voice_analyzer.MFCC;
 
 public class DataBase implements IDataBase {
-	private RealMatrix base;
+	private RealMatrix data;
 	private List<IRecord> records;
 	
 	public DataBase(List<String> paths) {
@@ -17,39 +17,46 @@ public class DataBase implements IDataBase {
 			throw new IllegalArgumentException("Cannot calculate base without files.");
 		}
 		
-		this.base = new Array2DRowRealMatrix(paths.size(), IRecord.MFCCLength);
+		this.data = new Array2DRowRealMatrix(paths.size(), IRecord.MFCCLength);
 		this.records = new ArrayList<>(paths.size());
 		
-		for (int i = 0 ; i < base.getRowDimension() ; ++i) {
+		for (int i = 0 ; i < data.getRowDimension() ; ++i) {
 			String path = paths.get(i);
 			IRecord record = new Record(path);
 			records.add(record);
 			double[] mfccMean = record.getMfccMean();
 			
-			for (int j = 0 ; j < base.getColumnDimension() ; ++j) {
+			for (int j = 0 ; j < data.getColumnDimension() ; ++j) {
 				double entry = mfccMean[j];
-				base.setEntry(i, j, entry);
+				data.setEntry(i, j, entry);
 			}
 		}
 	}
 	
-	public void multiplyBase(RealMatrix newBase) {
-		base = base.multiply(newBase);
+	public void multiplyData(RealMatrix newBase) {
+		data = data.multiply(newBase);
 	}
 	
 	public Command getCommand(int i) {
 		return records.get(i).getCommand();
 	}
 	
-	public RealMatrix getBase() {
-		return base;
+	public double getValue(int i, int j) {
+		return data.getEntry(i,j);
+	}
+	
+	public double[] getMfccMean(int i) {
+		return data.getRow(i);
+	}
+	public RealMatrix getData() {
+		return data;
 	}
 	
 	public int getNbFiles() {
-		return base.getRowDimension();
+		return data.getRowDimension();
 	}
 	
 	public int getMFCCSize() {
-		return base.getColumnDimension();
+		return data.getColumnDimension();
 	}
 }

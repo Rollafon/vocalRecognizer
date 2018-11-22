@@ -3,6 +3,7 @@ package tp2;
 public class ConfusionMatrix {
 	private int[][] matrix;
 	private IDataBase reference;
+	private float errorRate;
 	
 	public ConfusionMatrix(IDataBase reference, IDataBase tests, IRecognizer recognizer) {
 		this.matrix = new int[Command.All.length][Command.All.length];
@@ -11,9 +12,13 @@ public class ConfusionMatrix {
 				matrix[i][j] = 0;
 			}
 		}
-		this.reference = reference;
-		// TODO : implem une interface qui réunit DTW et IKPPV
 		
+		this.reference = reference;
+		for (int i = 0 ; i < tests.getNbFiles() ; ++i) {
+			for (int j = 0 ; j < tests.getMFCCSize() ; ++i) {
+				
+			}
+		}
 	}
 	
 }
