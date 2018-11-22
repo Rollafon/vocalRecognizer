@@ -4,9 +4,10 @@ public interface Ikppv {
 	
 	/**
 	 * Search the nearest label
-	 * @param k
+	 * @param IRecord: the record to be tested
+	 * @param k: the number of neighbors to compare the test
 	 * @return the corresponding label
 	 */
-	public String searchLabel(IDataBase tests, int k);
+	public String searchLabel(IRecord test, int k);
 	
 }
