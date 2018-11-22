@@ -24,10 +24,10 @@ public class DataBase implements IDataBase {
 			String path = paths.get(i);
 			IRecord record = new Record(path);
 			records.add(record);
-			MFCC mfccMean = record.getMfccMean();
+			double[] mfccMean = record.getMfccMean();
 			
 			for (int j = 0 ; j < base.getColumnDimension() ; ++j) {
-				double entry = mfccMean.getCoef(j);
+				double entry = mfccMean[j];
 				base.setEntry(i, j, entry);
 			}
 		}

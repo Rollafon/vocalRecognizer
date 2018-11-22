@@ -99,14 +99,11 @@ public class Record implements IRecord {
 	public boolean isLoaded() {
 		return loaded;
 	}
-	public MFCC getMfccMean() {
-		return mfccMean;
-	}
-	public RealMatrix getMfccMeanAsMatrix() {
+	public double[] getMfccMean() {
 		double[] coefs = new double[mfccMean.getLength()];
 		for (int i = 0 ; i < coefs.length ; ++i) {
 			coefs[i] = mfccMean.getCoef(i);
 		}
-		return new Array2DRowRealMatrix(coefs);
+		return coefs;
 	}
 }
