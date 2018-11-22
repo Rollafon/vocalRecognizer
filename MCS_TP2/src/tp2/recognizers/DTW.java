@@ -2,14 +2,14 @@ package tp2.recognizers;
 
 import fr.enseeiht.danck.voice_analyzer.DTWHelper;
 import fr.enseeiht.danck.voice_analyzer.Field;
-import tp1.myMFCCdistance;
+import tp1.MFCCDistance;
 import tp2.ICommand;
 import tp2.IDataBase;
 import tp2.IRecord;
 
 public class DTW extends DTWHelper implements IRecognizer {
 	private IDataBase reference;
-	private myMFCCdistance mfccDist;
+	private MFCCDistance mfccDist;
 	private float w0;
 	private float w1;
 	private float w2;
@@ -44,7 +44,7 @@ public class DTW extends DTWHelper implements IRecognizer {
 		return g[unknown.getLength()][known.getLength()] / ((float)(unknown.getLength() + known.getLength()));
 	}
 		
-	public DTW(IDataBase reference, myMFCCdistance mfccDist) {
+	public DTW(IDataBase reference, MFCCDistance mfccDist) {
 		this.reference = reference;
 		this.mfccDist = mfccDist;
 		this.w0 = 1;

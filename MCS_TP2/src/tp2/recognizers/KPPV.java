@@ -3,7 +3,7 @@ package tp2.recognizers;
 import java.util.HashMap;
 import java.util.Map;
 
-import tp1.myMFCCdistance;
+import tp1.MFCCDistance;
 import tp2.Command;
 import tp2.ICommand;
 import tp2.IDataBase;
@@ -13,8 +13,7 @@ public class KPPV implements IRecognizer {
 	private IDataBase datas; // Database
 	private String[] label; // Labels of each record of the database (same sequence)
 	private int k; // Number of neighbors to consider
-
-	myMFCCdistance distCalc = new myMFCCdistance();
+	private MFCCDistance distCalc = new MFCCDistance();
 
 	/* Represent a number and a string, used as a distance and a label */
 	private class DistToLab {

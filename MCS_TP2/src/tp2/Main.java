@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import tp1.MFCCDistance;
 import tp1.myMFCCdistance;
 import tp2.recognizers.DTW;
 import tp2.recognizers.IRecognizer;
@@ -30,7 +31,7 @@ public class Main {
 		List<String> testsFilepaths = getFilepathsFromDir(testpath);
 		IDataBase tests = new DataBase(testsFilepaths);
 		
-		IRecognizer dtwRecognizer = new DTW(references, new myMFCCdistance());
+		IRecognizer dtwRecognizer = new DTW(references, new MFCCDistance());
 		IConfusionMatrix matrix1 = new ConfusionMatrix(references, tests, dtwRecognizer);
 		System.out.println(matrix1);
 		
