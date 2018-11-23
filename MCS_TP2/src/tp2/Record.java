@@ -23,13 +23,6 @@ public class Record implements IRecord {
 	private MFCC mfccMean;
 	private StorageType storageType;
 	
-	/**
-	 * Constructor
-	 * @param path
-	 */
-	public Record(String path) {
-		this(path, StorageType.StoreBoth);
-	}
 	public Record(String path, StorageType storageType) {
 		this.path = path;
 		if (!(new File(path).exists())) {

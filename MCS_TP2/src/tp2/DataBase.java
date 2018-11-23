@@ -11,7 +11,7 @@ public class DataBase implements IDataBase {
 	private List<IRecord> records;
 	private List<ICommand> commands;
 	
-	public DataBase(List<String> paths) {
+	public DataBase(List<String> paths, StorageType storageType) {
 		if (paths.isEmpty()) {
 			throw new IllegalArgumentException("Cannot create base without files.");
 		}
@@ -22,7 +22,7 @@ public class DataBase implements IDataBase {
 		
 		for (int i = 0 ; i < data.getRowDimension() ; ++i) {
 			String path = paths.get(i);
-			IRecord record = new Record(path);
+			IRecord record = new Record(path, storageType);
 			records.add(record);
 			commands.add(record.getCommand());
 			double[] mfccMean = record.getMfccMean();
@@ -31,7 +31,7 @@ public class DataBase implements IDataBase {
 				double entry = mfccMean[j];
 				data.setEntry(i, j, entry);
 			}
-		}
+		}	
 	}
 	
 	public void multiplyData(RealMatrix newBase) {

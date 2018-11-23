@@ -24,7 +24,7 @@ public class Main {
 	public static void main(String[] args) {
 		String dirpath = "./resources/refs1";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath);
-		IDataBase references = new DataBase(refsFilepaths);	
+		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);	
 
 		/*
 		String testpath = "./resources/tests1";
