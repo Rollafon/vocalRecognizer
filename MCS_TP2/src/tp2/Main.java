@@ -31,11 +31,11 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		String dirpath = "./resources/refs2_partial";
+		String dirpath = "./resources/refs3_all";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
 		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);	
 
-		String testpath = "./resources/tests1";
+		String testpath = "./resources/tests2";
 		List<String> testsFilepaths = getFilepathsFromDir(testpath, true);
 		IDataBase tests = new DataBase(testsFilepaths, StorageType.StoreBoth);
 		

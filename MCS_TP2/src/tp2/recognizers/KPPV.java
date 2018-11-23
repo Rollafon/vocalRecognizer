@@ -93,7 +93,7 @@ public class KPPV implements IRecognizer {
 		double[][] mfccMean2 = new double[1][mfccMean.length];
 		mfccMean2[0] = mfccMean;
 		RealMatrix vector = new Array2DRowRealMatrix(mfccMean2);
-		vector.multiply(acp.getNewBase());
+		vector = vector.multiply(acp.getNewBase());
 		
 		double[] test = vector.getRow(0);
 		
