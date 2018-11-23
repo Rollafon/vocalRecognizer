@@ -21,6 +21,4 @@ public interface IDataBase {
 	public RealMatrix getBase();
 	
 	public int getNbFiles();
-	
-	public int getMFCCSize();
 }

@@ -28,7 +28,7 @@ public class Main {
 		}
 		return filepaths;
 	}
-
+	
 	public static void main(String[] args) {
 		String dirpath = "./resources/refs2_partial";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
