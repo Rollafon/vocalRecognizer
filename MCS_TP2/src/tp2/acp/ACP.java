@@ -80,7 +80,7 @@ public class ACP implements IACP {
 	}
 	
 	/**
-	 * Getteur for throw
+	 * Getteur of newBase
 	 */
 	public RealMatrix getNewBase() {
 		return newBase;
