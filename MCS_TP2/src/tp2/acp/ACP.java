@@ -17,6 +17,7 @@ import tp2.IDataBase;
  */
 public class ACP implements IACP {
 	// ATTRIBUTES
+	private int k;
 	private RealMatrix newBase;
 	
 	// PRIVATE METHODS
@@ -45,7 +46,6 @@ public class ACP implements IACP {
 			eigenValues.add(matEigenValues.getEntry(i, i));
 		}
 		
-		final int k = 3;
 		List<Integer> indexesMaxValues = getIndexesOfMaxValues(eigenValues, k);
 		
 		double[][] eigenVectors = new double[cov.getColumnDimension()][k];
@@ -57,8 +57,7 @@ public class ACP implements IACP {
 			}
 		}
 		
-		RealMatrix newBase = new Array2DRowRealMatrix(eigenVectors);
-		return newBase;
+		return new Array2DRowRealMatrix(eigenVectors);
 	}
 	
 	private class Pair {
@@ -76,7 +75,8 @@ public class ACP implements IACP {
 	 * @param dataBase
 	 */
 	public ACP(IDataBase dataBase) {
-		newBase = calcNewBase(dataBase.getBase());
+		this.k = 3;
+		this.newBase = calcNewBase(dataBase.getBase());
 	}
 	
 	/**
