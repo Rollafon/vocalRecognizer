@@ -1,6 +1,8 @@
 package tp2;
 
 import java.io.File;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,17 +31,13 @@ public class Main {
 		return filepaths;
 	}
 	
-	/**
-	 * Main de l'application. réalise une comparaison entre la référence du dossier dirpath et les tests du dossier testpath pour afficher les matrices de confusion des méthodes des comparaisons entre les deux bases de données.
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		String dirpath = "./resources/refs2_partial";
-		String testpath = "./resources/tests2";
-		
+		String dirpath = "./resources/refs1_m01";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
+		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);	
+
+		String testpath = "./resources/tests2";
 		List<String> testsFilepaths = getFilepathsFromDir(testpath, true);
-		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);
 		IDataBase tests = new DataBase(testsFilepaths, StorageType.StoreBoth);
 		
 		System.out.println("Dossier de reference = \"" + dirpath + "\"");
@@ -47,19 +45,31 @@ public class Main {
 		System.out.println("Dossier de tests = \"" + testpath + "\"");
 		System.out.println("Nb fichiers de tests = " + tests.getNbFiles() + "\n");
 		
+		Instant start, end;
+		long dtwTime, acpIdentTime;
+		start = Instant.now();
 		IRecognizer dtwRecognizer = new DTW(references, new MFCCDistance());
 		IConfusionMatrix matrix1 = new ConfusionMatrix(references, tests, dtwRecognizer);
 		System.out.println(matrix1);
+		end = Instant.now();
+		dtwTime = ChronoUnit.MILLIS.between(start, end);
 		
-		references.reload();
+		start = Instant.now();
 		final int k = 3;
 		IRecognizer kppvRecognizer = new KPPV(references, k, new ACPIdentity(references));
 		IConfusionMatrix matrix2 = new ConfusionMatrix(references, tests, kppvRecognizer);
 		System.out.println(matrix2);
-		
-		references.reload();
+		end = Instant.now();
+		acpIdentTime = ChronoUnit.MILLIS.between(start, end);
+
+		start = Instant.now();
 		IRecognizer kppvRecognizerACP = new KPPV(references, k, new ACP(references));
 		IConfusionMatrix matrix3 = new ConfusionMatrix(references, tests, kppvRecognizerACP);
 		System.out.println(matrix3);
+		end = Instant.now();
+		
+		System.out.println("Durée DTW : " + dtwTime + "ms");
+		System.out.println("Durée ACPIdentity : " + acpIdentTime + "ms");
+		System.out.println("Durée ACP : " + ChronoUnit.MILLIS.between(start, end) + "ms");
 	}
 }
