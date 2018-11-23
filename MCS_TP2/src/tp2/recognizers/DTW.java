@@ -48,6 +48,11 @@ public class DTW extends DTWHelper implements IRecognizer {
 		return g[unknown.getLength()][known.getLength()] / ((float)(unknown.getLength() + known.getLength()));
 	}
 	
+	/**
+	 * Classe DTW du TP1, adaptée pour les classes du TP2.
+	 * @param reference est la base de données de références pour les calculs.
+	 * @param mfccDist est la classe pour calculer la distance entre 2 Fields d'un fichier.
+	 */
 	public DTW(IDataBase reference, MFCCDistance mfccDist) {
 		this.reference = reference;
 		this.mfccDist = mfccDist;

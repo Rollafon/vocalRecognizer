@@ -25,6 +25,11 @@ public class Record implements IRecord {
 	private MFCC mfccMean;
 	private StorageType storageType;
 
+	/**
+	 * Code importé de moodle. Calcule la taille d'un field d'un fichier pour savoir combien de MFCC il contiendra.
+	 * @param fileName est le chemin du fichier dont on veut le nombre de MFCC.
+	 * @return la taille du Field pour ce fichier.
+	 */
 	@SuppressWarnings("unused")
 	private int getFieldLength(String fileName) {
 		int result;
@@ -48,7 +53,12 @@ public class Record implements IRecord {
 		return storageType == StorageType.StoreBoth || storageType == StorageType.StoreMfccMean;
 	}
 	
-	private Command pathToCommand(String path) {
+	/**
+	 * Récupère la commande associée au chemin du fichier qui est de la forme "<chemin>/<prefix>_<commande>.<extension>"
+	 * @param path est le chemin du fichier dont on veut récupérer la commande.
+	 * @return la commande associée au fichier.
+	 */
+	private ICommand pathToCommand(String path) {
 		String commandName = new File(path).getName();
 		// Extract file extension after '.'
 		int indexOfPt = commandName.lastIndexOf(".") + 1;
@@ -63,6 +73,9 @@ public class Record implements IRecord {
 		return new Command(commandName);
 	}
 	
+	/**
+	 * Lit le fichier path et enregistre le MFCC moyen et/ou le Field associé.
+	 */
 	private void loadMFCC() {
 	    List<String> files = new ArrayList<>();
 	    files.add(path);
@@ -96,12 +109,16 @@ public class Record implements IRecord {
 			
 			if (isStoringField()) {
 				field = new Field(mfccs);
+			} else {
+				field = null;
 			}
 			if (isStoringMfccMean()) {
 				mfccMean = new MFCC(coefs, signals);
+			} else {
+				mfccMean = null;
 			}
-			loaded = true;
 			
+			loaded = true;
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}

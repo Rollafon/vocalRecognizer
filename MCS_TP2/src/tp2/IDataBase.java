@@ -7,6 +7,8 @@ import org.apache.commons.math3.linear.RealMatrix;
 public interface IDataBase {
 	public void multiplyData(RealMatrix newBase);
 	
+	public void reload();
+	
 	// GETTERS	
 	public ICommand getCommand(int numFichier);
 	
@@ -18,7 +20,7 @@ public interface IDataBase {
 	
 	public double[] getMfccMean(int numFichier);
 	
-	public RealMatrix getBase();
+	public RealMatrix getData();
 	
 	public int getNbFiles();
 }

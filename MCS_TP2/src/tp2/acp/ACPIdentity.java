@@ -8,8 +8,12 @@ import tp2.IDataBase;
 public class ACPIdentity implements IACP {
 	private RealMatrix newBase;
 	
+	/**
+	 * Crée une matrice identité pour simplifier le test de KPPV.
+	 * @param dataBase est la base dont on veut la matrice identité.
+	 */
 	public ACPIdentity(IDataBase dataBase) {
-		RealMatrix base = dataBase.getBase();
+		RealMatrix base = dataBase.getData();
 		this.newBase = new Array2DRowRealMatrix(base.getColumnDimension(), base.getColumnDimension());
 		
 		for (int i = 0 ; i < base.getColumnDimension() ; ++i) {

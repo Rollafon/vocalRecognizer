@@ -29,13 +29,17 @@ public class Main {
 		return filepaths;
 	}
 	
+	/**
+	 * Main de l'application. réalise une comparaison entre la référence du dossier dirpath et les tests du dossier testpath pour afficher les matrices de confusion des méthodes des comparaisons entre les deux bases de données.
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		String dirpath = "./resources/refs1_m01";
-		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
-		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);	
-
+		String dirpath = "./resources/refs2_partial";
 		String testpath = "./resources/tests2";
+		
+		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
 		List<String> testsFilepaths = getFilepathsFromDir(testpath, true);
+		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);
 		IDataBase tests = new DataBase(testsFilepaths, StorageType.StoreBoth);
 		
 		System.out.println("Dossier de reference = \"" + dirpath + "\"");
@@ -47,11 +51,13 @@ public class Main {
 		IConfusionMatrix matrix1 = new ConfusionMatrix(references, tests, dtwRecognizer);
 		System.out.println(matrix1);
 		
+		references.reload();
 		final int k = 3;
 		IRecognizer kppvRecognizer = new KPPV(references, k, new ACPIdentity(references));
 		IConfusionMatrix matrix2 = new ConfusionMatrix(references, tests, kppvRecognizer);
 		System.out.println(matrix2);
 		
+		references.reload();
 		IRecognizer kppvRecognizerACP = new KPPV(references, k, new ACP(references));
 		IConfusionMatrix matrix3 = new ConfusionMatrix(references, tests, kppvRecognizerACP);
 		System.out.println(matrix3);

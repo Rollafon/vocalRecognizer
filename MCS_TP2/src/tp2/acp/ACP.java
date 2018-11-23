@@ -33,9 +33,14 @@ public class ACP implements IACP {
 		}
 		return indexes;
 	}
-
-	private RealMatrix calcNewBase(RealMatrix base) {
-		RealMatrix cov = new Covariance(base).getCovarianceMatrix();
+	
+	/**
+	 * Calcule la nouvelle base associé à la matrice data.
+	 * @param data est la matrice dont on veut la nouvelle base.
+	 * @return la nouvelle base pour compresser la matrice data.
+	 */
+	private RealMatrix calcNewBase(RealMatrix data) {
+		RealMatrix cov = new Covariance(data).getCovarianceMatrix();
 		
 		EigenDecomposition eigenDecomposition = new EigenDecomposition(cov);
 		RealMatrix matEigenValues = eigenDecomposition.getD();
@@ -76,12 +81,9 @@ public class ACP implements IACP {
 	 */
 	public ACP(IDataBase dataBase) {
 		this.k = 3;
-		this.newBase = calcNewBase(dataBase.getBase());
+		this.newBase = calcNewBase(dataBase.getData());
 	}
 	
-	/**
-	 * Getteur of newBase
-	 */
 	public RealMatrix getNewBase() {
 		return newBase;
 	}

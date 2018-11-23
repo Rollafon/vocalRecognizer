@@ -56,10 +56,10 @@ public class KPPV implements IRecognizer {
 	 * @return the array of distances related to their corresponding label
 	 */
 	private DistToLab[] evalDistances(double[] test) {
-		DistToLab[] res = new DistToLab[datas.getBase().getRowDimension()];
+		DistToLab[] res = new DistToLab[datas.getData().getRowDimension()];
 
-		for (int i = 0; i < datas.getBase().getRowDimension(); ++i)
-			res[i] = new DistToLab(distCalc.distance(datas.getBase().getRow(i), test), datas.getCommand(i).toString());
+		for (int i = 0; i < datas.getData().getRowDimension(); ++i)
+			res[i] = new DistToLab(distCalc.distance(datas.getData().getRow(i), test), datas.getCommand(i).toString());
 
 		return res;
 	}
