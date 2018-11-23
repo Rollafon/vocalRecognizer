@@ -47,7 +47,7 @@ public class DTW extends DTWHelper implements IRecognizer {
 		}
 		return g[unknown.getLength()][known.getLength()] / ((float)(unknown.getLength() + known.getLength()));
 	}
-		
+	
 	public DTW(IDataBase reference, MFCCDistance mfccDist) {
 		this.reference = reference;
 		this.mfccDist = mfccDist;
