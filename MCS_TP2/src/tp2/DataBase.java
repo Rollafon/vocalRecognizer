@@ -20,6 +20,7 @@ public class DataBase implements IDataBase {
 		this.records = new ArrayList<>(paths.size());
 		this.commands = new ArrayList<>(paths.size());
 		
+		// Note: getRowDimension() == paths.size()
 		for (int i = 0 ; i < data.getRowDimension() ; ++i) {
 			String path = paths.get(i);
 			IRecord record = new Record(path, storageType);

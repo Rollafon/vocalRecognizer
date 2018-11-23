@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp1.MFCCDistance;
+import tp2.acp.ACPIdentity;
 import tp2.recognizers.DTW;
 import tp2.recognizers.IRecognizer;
 import tp2.recognizers.KPPV;
@@ -35,13 +36,13 @@ public class Main {
 		IConfusionMatrix matrix1 = new ConfusionMatrix(references, tests, dtwRecognizer);
 		System.out.println(matrix1);
 		
-		IRecognizer kppvRecognizer = new KPPV(references, Command.All);
+		IRecognizer kppvRecognizer = new KPPV(references);
 		IConfusionMatrix matrix2 = new ConfusionMatrix(references, tests, kppvRecognizer);
 		System.out.println(matrix2);
 		//*/
 		
 		// TMP : TEST KPPV
-		IRecognizer recognizer = new KPPV(references);
+		IRecognizer recognizer = new KPPV(references, new ACPIdentity(references));
 		IRecord record = new Record("./resources/tests1/M02_arretetoi.csv", StorageType.StoreMfccMean);
 		System.out.println("Commande du nom du fichier = " + record.getCommand());
 		ICommand command = recognizer.searchCommand(record, 3);

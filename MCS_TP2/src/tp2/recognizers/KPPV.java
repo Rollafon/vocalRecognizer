@@ -4,17 +4,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
+
 import tp1.MFCCDistance;
 import tp2.Command;
 import tp2.ICommand;
 import tp2.IDataBase;
 import tp2.IRecord;
+import tp2.acp.IACP;
 
 public class KPPV implements IRecognizer {
 	private IDataBase datas; // Database
 	private String[] label; // Labels of each record of the database (same sequence)
 	private int k; // Number of neighbors to consider
 	private MFCCDistance distCalc = new MFCCDistance();
+	private IACP acp;
 
 	/* Represent a number and a string, used as a distance and a label */
 	private class DistToLab {
@@ -36,8 +43,11 @@ public class KPPV implements IRecognizer {
 	 * @param label:
 	 *            the array of labels corresponding to the values of database
 	 */
-	public KPPV(IDataBase datas) {
+	public KPPV(IDataBase datas, IACP acp) {
 		this.datas = datas;
+		this.acp = acp;
+		
+		datas.multiplyData(acp.getNewBase());
 		
 		List<ICommand> commands = datas.getCommands();
 		this.label = new String[commands.size()];
@@ -89,7 +99,14 @@ public class KPPV implements IRecognizer {
 
 	@Override
 	public ICommand searchCommand(IRecord record, int k) {
-		double[] test = record.getMfccMean();
+		double[] mfccMean = record.getMfccMean();
+		double[][] mfccMean2 = new double[1][mfccMean.length];
+		mfccMean2[0] = mfccMean;
+		RealMatrix vector = new Array2DRowRealMatrix(mfccMean2);
+		vector.multiply(acp.getNewBase());
+		
+		double[] test = vector.getRow(0);
+		
 		DistToLab[] distances = evalDistances(test);
 		DistToLab[] kNearest = kNearest(distances);
 		
