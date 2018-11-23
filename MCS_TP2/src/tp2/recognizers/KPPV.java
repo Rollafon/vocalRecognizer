@@ -1,6 +1,7 @@
 package tp2.recognizers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import tp1.MFCCDistance;
@@ -35,9 +36,14 @@ public class KPPV implements IRecognizer {
 	 * @param label:
 	 *            the array of labels corresponding to the values of database
 	 */
-	public KPPV(IDataBase datas, String[] label) {
+	public KPPV(IDataBase datas) {
 		this.datas = datas;
-		this.label = label;
+		
+		List<ICommand> commands = datas.getCommands();
+		this.label = new String[commands.size()];
+		for (int i = 0 ; i < label.length ; ++i) {
+			this.label[i] = commands.get(i).toString();
+		}
 	}
 
 	/**
@@ -89,7 +95,7 @@ public class KPPV implements IRecognizer {
 		
 		Map<String, Integer> classCounter = new HashMap<>();
 		Integer max = new Integer(0);
-		String recognizedLabel = "";
+		String recognizedLabel = "UNKNOWN_LABEL";
 		for (DistToLab d : kNearest) {
 			if (classCounter.containsKey(d.label)) {
 				Integer i = classCounter.get(d.label) + 1;

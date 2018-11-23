@@ -21,6 +21,7 @@ public class Record implements IRecord {
 	private boolean loaded;
 	private Field field;
 	private MFCC mfccMean;
+	private RecordStorage storageType;
 	
 	/**
 	 * Constructor
@@ -33,7 +34,8 @@ public class Record implements IRecord {
 		}
 		this.mfccMean = null;
 		this.loaded = false;
-		this.command = pathToCommand(path);		
+		this.command = pathToCommand(path);
+		this.storageType = RecordStorage.StoreBoth;
 		loadMFCC();
 	}
 	
@@ -103,6 +105,9 @@ public class Record implements IRecord {
 		return loaded;
 	}
 	public double[] getMfccMean() {
+		if (storageType != RecordStorage.StoreBoth && storageType != RecordStorage.StoreMfccMean) {
+			throw new IllegalStateException("Cannot getMfccMean() with this record.");
+		}
 		double[] coefs = new double[mfccMean.getLength()];
 		for (int i = 0 ; i < coefs.length ; ++i) {
 			coefs[i] = mfccMean.getCoef(i);
@@ -110,6 +115,9 @@ public class Record implements IRecord {
 		return coefs;
 	}
 	public Field getField() {
+		if (storageType != RecordStorage.StoreBoth && storageType != RecordStorage.StoreField) {
+			throw new IllegalStateException("Cannot getField() with this record.");
+		}
 		return field;
 	}
 }

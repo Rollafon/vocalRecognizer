@@ -41,8 +41,7 @@ public class Main {
 		//*/
 		
 		// TMP : TEST KPPV
-		IRecognizer recognizer = new KPPV(references, Command.All);
-		
+		IRecognizer recognizer = new KPPV(references);
 		IRecord record = new Record("./resources/tests1/M02_arretetoi.csv");
 		System.out.println("Commande du nom du fichier = " + record.getCommand());
 		ICommand command = recognizer.searchCommand(record, 3);
