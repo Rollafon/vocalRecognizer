@@ -10,10 +10,10 @@ public class ACPIdentity implements IACP {
 	
 	public ACPIdentity(IDataBase dataBase) {
 		RealMatrix base = dataBase.getBase();
-		this.newBase = new Array2DRowRealMatrix(base.getRowDimension(), base.getRowDimension());
+		this.newBase = new Array2DRowRealMatrix(base.getColumnDimension(), base.getColumnDimension());
 		
-		for (int i = 0 ; i < base.getRowDimension() ; ++i) {
-			for (int j = 0 ; j < base.getRowDimension() ; ++j) {
+		for (int i = 0 ; i < base.getColumnDimension() ; ++i) {
+			for (int j = 0 ; j < base.getColumnDimension() ; ++j) {
 				if (i == j) {
 					newBase.setEntry(i, j, 1);
 				} else {

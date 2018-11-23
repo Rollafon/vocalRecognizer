@@ -7,7 +7,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 public interface IDataBase {
 	public void multiplyData(RealMatrix newBase);
 	
-	// GETTERS 
+	// GETTERS	
 	public ICommand getCommand(int numFichier);
 	
 	public List<ICommand> getCommands();

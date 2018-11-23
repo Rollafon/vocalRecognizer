@@ -6,6 +6,12 @@ public class ConfusionMatrix implements IConfusionMatrix {
 	private int[][] matrix;
 	private float errorRate;
 	
+	/**
+	 * Constructor of ConfusionMatrix
+	 * @param reference
+	 * @param tests
+	 * @param recognizer
+	 */
 	public ConfusionMatrix(IDataBase reference, IDataBase tests, IRecognizer recognizer) {
 		this.matrix = new int[Command.All.length][Command.All.length];
 		for (int i = 0 ; i < matrix.length ; ++i) {
@@ -15,7 +21,7 @@ public class ConfusionMatrix implements IConfusionMatrix {
 		}
 		
 		this.errorRate = 0.f;
-		final int k = 2;
+		final int k = 10;
 		for (int i = 0 ; i < tests.getNbFiles() ; ++i) {
 			ICommand commandFound = recognizer.searchCommand(tests.getRecord(i), k);
 			ICommand commandFile = tests.getCommand(i);
