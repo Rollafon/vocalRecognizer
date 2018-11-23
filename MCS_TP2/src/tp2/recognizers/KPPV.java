@@ -1,14 +1,10 @@
 package tp2.recognizers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.linear.RealVector;
-
 import tp1.MFCCDistance;
 import tp2.Command;
 import tp2.ICommand;
@@ -18,7 +14,6 @@ import tp2.acp.IACP;
 
 public class KPPV implements IRecognizer {
 	private IDataBase datas; // Database
-	private String[] label; // Labels of each record of the database (same sequence)
 	private int k; // Number of neighbors to consider
 	private MFCCDistance distCalc = new MFCCDistance();
 	private IACP acp;
@@ -48,12 +43,6 @@ public class KPPV implements IRecognizer {
 		this.acp = acp;
 		
 		datas.multiplyData(acp.getNewBase());
-		
-		List<ICommand> commands = datas.getCommands();
-		this.label = new String[commands.size()];
-		for (int i = 0 ; i < label.length ; ++i) {
-			this.label[i] = commands.get(i).toString();
-		}
 	}
 
 	/**
@@ -67,7 +56,7 @@ public class KPPV implements IRecognizer {
 		DistToLab[] res = new DistToLab[datas.getBase().getRowDimension()];
 
 		for (int i = 0; i < datas.getBase().getRowDimension(); ++i)
-			res[i] = new DistToLab(distCalc.distance(datas.getBase().getRow(i), test), label[i]);
+			res[i] = new DistToLab(distCalc.distance(datas.getBase().getRow(i), test), datas.getCommand(i).toString());
 
 		return res;
 	}
@@ -99,6 +88,7 @@ public class KPPV implements IRecognizer {
 
 	@Override
 	public ICommand searchCommand(IRecord record, int k) {
+		this.k = k;
 		double[] mfccMean = record.getMfccMean();
 		double[][] mfccMean2 = new double[1][mfccMean.length];
 		mfccMean2[0] = mfccMean;
@@ -111,20 +101,20 @@ public class KPPV implements IRecognizer {
 		DistToLab[] kNearest = kNearest(distances);
 		
 		Map<String, Integer> classCounter = new HashMap<>();
-		Integer max = new Integer(0);
+		int max = 0;
 		String recognizedLabel = "UNKNOWN_LABEL";
 		for (DistToLab d : kNearest) {
 			if (classCounter.containsKey(d.label)) {
-				Integer i = classCounter.get(d.label) + 1;
+				int i = classCounter.get(d.label) + 1;
 				classCounter.put(d.label, i);
 				if (max < i) {
 					max = i;
 					recognizedLabel = d.label;
 				}
 			} else {
-				classCounter.put(d.label, new Integer(1));
+				classCounter.put(d.label, 1);
 				if (max < 1) {
-					max = new Integer(1);
+					max = 1;
 					recognizedLabel = d.label;
 				}
 			}
