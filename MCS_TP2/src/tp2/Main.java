@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp1.MFCCDistance;
+import tp2.acp.ACP;
 import tp2.acp.ACPIdentity;
 import tp2.recognizers.DTW;
 import tp2.recognizers.IRecognizer;
@@ -30,7 +31,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		String dirpath = "./resources/refs2_partial";
+		String dirpath = "./resources/refs3_all";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
 		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);	
 
@@ -45,5 +46,9 @@ public class Main {
 		IRecognizer kppvRecognizer = new KPPV(references, new ACPIdentity(references));
 		IConfusionMatrix matrix2 = new ConfusionMatrix(references, tests, kppvRecognizer);
 		System.out.println(matrix2);
+		
+		IRecognizer kppvRecognizerACP = new KPPV(references, new ACP(references));
+		IConfusionMatrix matrix3 = new ConfusionMatrix(references, tests, kppvRecognizerACP);
+		System.out.println(matrix3);
 	}
 }
