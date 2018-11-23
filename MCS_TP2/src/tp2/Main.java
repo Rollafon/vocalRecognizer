@@ -42,7 +42,7 @@ public class Main {
 		
 		// TMP : TEST KPPV
 		IRecognizer recognizer = new KPPV(references);
-		IRecord record = new Record("./resources/tests1/M02_arretetoi.csv");
+		IRecord record = new Record("./resources/tests1/M02_arretetoi.csv", StorageType.StoreMfccMean);
 		System.out.println("Commande du nom du fichier = " + record.getCommand());
 		ICommand command = recognizer.searchCommand(record, 3);
 		System.out.println("Commande reconnue = " + command);
