@@ -31,13 +31,16 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		String dirpath = "./resources/refs3_all";
+		String dirpath = "./resources/refs2_partial";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
 		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);	
 
 		String testpath = "./resources/tests1";
 		List<String> testsFilepaths = getFilepathsFromDir(testpath, true);
 		IDataBase tests = new DataBase(testsFilepaths, StorageType.StoreBoth);
+		
+		System.out.println("Nb fichiers de references = " + references.getNbFiles() + "");
+		System.out.println("Nb fichiers de tests = " + tests.getNbFiles() + "\n");
 		
 		IRecognizer dtwRecognizer = new DTW(references, new MFCCDistance());
 		IConfusionMatrix matrix1 = new ConfusionMatrix(references, tests, dtwRecognizer);

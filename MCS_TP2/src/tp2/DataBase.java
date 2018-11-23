@@ -7,15 +7,12 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 
 public class DataBase implements IDataBase {
+	private StorageType storageType;
 	private RealMatrix data;
 	private List<IRecord> records;
 	private List<ICommand> commands;
 	
-	public DataBase(List<String> paths, StorageType storageType) {
-		if (paths.isEmpty()) {
-			throw new IllegalArgumentException("Cannot create base without files.");
-		}
-		
+	private void loadData(List<String> paths) {
 		this.data = new Array2DRowRealMatrix(paths.size(), IRecord.MFCCLength);
 		this.records = new ArrayList<>(paths.size());
 		this.commands = new ArrayList<>(paths.size());
@@ -33,6 +30,14 @@ public class DataBase implements IDataBase {
 				data.setEntry(i, j, entry);
 			}
 		}	
+	}
+	
+	public DataBase(List<String> paths, StorageType storageType) {
+		if (paths.isEmpty()) {
+			throw new IllegalArgumentException("Cannot create base without files.");
+		}
+		this.storageType = storageType;
+		loadData(paths);
 	}
 	
 	public void multiplyData(RealMatrix newBase) {
