@@ -35,7 +35,7 @@ public class Main {
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
 		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);	
 
-		String testpath = "./resources/tests1";
+		String testpath = "./resources/tests2";
 		List<String> testsFilepaths = getFilepathsFromDir(testpath, true);
 		IDataBase tests = new DataBase(testsFilepaths, StorageType.StoreBoth);
 		
