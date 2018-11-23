@@ -1,6 +1,6 @@
 package tp2;
 
-public enum RecordStorage {
+public enum StorageType {
 	StoreField,
 	StoreMfccMean,
 	StoreBoth

@@ -21,13 +21,16 @@ public class Record implements IRecord {
 	private boolean loaded;
 	private Field field;
 	private MFCC mfccMean;
-	private RecordStorage storageType;
+	private StorageType storageType;
 	
 	/**
 	 * Constructor
 	 * @param path
 	 */
 	public Record(String path) {
+		this(path, StorageType.StoreBoth);
+	}
+	public Record(String path, StorageType storageType) {
 		this.path = path;
 		if (!(new File(path).exists())) {
 			throw new IllegalArgumentException("File \"" + path + "\" does not exists.");
@@ -35,8 +38,15 @@ public class Record implements IRecord {
 		this.mfccMean = null;
 		this.loaded = false;
 		this.command = pathToCommand(path);
-		this.storageType = RecordStorage.StoreBoth;
+		this.storageType = storageType;
 		loadMFCC();
+	}
+	
+	private boolean isStoringField() {
+		return storageType == StorageType.StoreBoth || storageType == StorageType.StoreField;
+	}
+	private boolean isStoringMfccMean() {
+		return storageType == StorageType.StoreBoth || storageType == StorageType.StoreMfccMean;
 	}
 	
 	private Command pathToCommand(String path) {
@@ -85,8 +95,12 @@ public class Record implements IRecord {
 				signals[i] /= (double) mfccs.length;
 			}
 			
-			field = new Field(mfccs);
-			mfccMean = new MFCC(coefs, signals);
+			if (isStoringField()) {
+				field = new Field(mfccs);
+			}
+			if (isStoringMfccMean()) {
+				mfccMean = new MFCC(coefs, signals);
+			}
 			loaded = true;
 			
 		} catch (IOException | InterruptedException e) {
@@ -105,7 +119,7 @@ public class Record implements IRecord {
 		return loaded;
 	}
 	public double[] getMfccMean() {
-		if (storageType != RecordStorage.StoreBoth && storageType != RecordStorage.StoreMfccMean) {
+		if (!isStoringMfccMean()) {
 			throw new IllegalStateException("Cannot getMfccMean() with this record.");
 		}
 		double[] coefs = new double[mfccMean.getLength()];
@@ -115,7 +129,7 @@ public class Record implements IRecord {
 		return coefs;
 	}
 	public Field getField() {
-		if (storageType != RecordStorage.StoreBoth && storageType != RecordStorage.StoreField) {
+		if (!isStoringField()) {
 			throw new IllegalStateException("Cannot getField() with this record.");
 		}
 		return field;
