@@ -11,7 +11,6 @@ import fr.enseeiht.danck.voice_analyzer.Extractor;
 import fr.enseeiht.danck.voice_analyzer.Field;
 import fr.enseeiht.danck.voice_analyzer.MFCC;
 import fr.enseeiht.danck.voice_analyzer.WindowMaker;
-import tp1.MultipleFileWindowMaker;
 
 /**
  * Class Record

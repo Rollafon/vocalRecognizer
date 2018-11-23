@@ -5,11 +5,12 @@ import java.util.Map;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
-import tp1.MFCCDistance;
+
 import tp2.Command;
 import tp2.ICommand;
 import tp2.IDataBase;
 import tp2.IRecord;
+import tp2.MFCCDistance;
 import tp2.acp.IACP;
 
 public class KPPV implements IRecognizer {

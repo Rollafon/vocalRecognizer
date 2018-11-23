@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp1.MFCCDistance;
 import tp2.acp.ACP;
 import tp2.acp.ACPIdentity;
 import tp2.recognizers.DTW;
@@ -31,7 +30,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		String dirpath = "./resources/refs3_all";
+		String dirpath = "./resources/refs2_partial";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
 		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);	
 

@@ -1,4 +1,4 @@
-package tp1;
+package tp2;
 import java.util.*;
 import java.io.*;
 import java.nio.charset.Charset;

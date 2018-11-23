@@ -1,4 +1,4 @@
-package tp1;
+package tp2;
 
 import fr.enseeiht.danck.voice_analyzer.MFCC;
 import fr.enseeiht.danck.voice_analyzer.MFCCHelper;

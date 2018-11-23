@@ -2,10 +2,10 @@ package tp2.recognizers;
 
 import fr.enseeiht.danck.voice_analyzer.DTWHelper;
 import fr.enseeiht.danck.voice_analyzer.Field;
-import tp1.MFCCDistance;
 import tp2.ICommand;
 import tp2.IDataBase;
 import tp2.IRecord;
+import tp2.MFCCDistance;
 
 public class DTW extends DTWHelper implements IRecognizer {
 	private IDataBase reference;
