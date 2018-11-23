@@ -73,7 +73,7 @@ public class KPPV implements IRecognizer {
 		DistToLab[] nearest = new DistToLab[k];
 
 		for (int i = 0; i < k; ++i) {
-			for (int j = test.length - 1; j < 0; --j) {
+			for (int j = test.length - 1; j > i; --j) {
 				if (test[j].dist < test[j - 1].dist) {
 					DistToLab tmp = test[j - 1];
 					test[j - 1] = test[j];
