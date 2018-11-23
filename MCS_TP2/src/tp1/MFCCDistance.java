@@ -7,6 +7,10 @@ public class MFCCDistance extends MFCCHelper {
 
 	@Override
 	public float distance(MFCC mfcc1, MFCC mfcc2) {
+		if (mfcc1.getLength() != mfcc2.getLength()) {
+			throw new IllegalArgumentException("Cannot calculate distance between values MFCC of different length: " + mfcc1.getLength() + " and " + mfcc2.getLength());
+		}
+		
 		float sqSum = 0;
 		for(int i = 0 ; i < mfcc1.getLength() ; ++i) {
 			sqSum += (mfcc1.getCoef(i) - mfcc2.getCoef(i)) * (mfcc1.getCoef(i) - mfcc2.getCoef(i));
@@ -15,6 +19,10 @@ public class MFCCDistance extends MFCCHelper {
 	}
 	
 	public float distance(double[] base, double[] test) {
+		if (base.length != test.length) {
+			throw new IllegalArgumentException("Cannot calculate distance between values double[] of different length: " + base.length + " and " + test.length);
+		}
+		
 		float sqSum = 0;
 		for(int i = 0 ; i < base.length ; ++i) {
 			sqSum += (base[i] - test[i]) * (base[i] - test[i]);

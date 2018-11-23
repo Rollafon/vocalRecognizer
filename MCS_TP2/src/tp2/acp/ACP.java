@@ -60,6 +60,15 @@ public class ACP implements IACP {
 		RealMatrix newBase = new Array2DRowRealMatrix(eigenVectors);
 		return newBase;
 	}
+	
+	private class Pair {
+		Pair(double value, int index) {
+			this.value = value;
+			this.index = index;
+		}
+		public double value;
+		public int index;
+	}
 
 	// METHODS
 	/**
@@ -75,14 +84,5 @@ public class ACP implements IACP {
 	 */
 	public RealMatrix getNewBase() {
 		return newBase;
-	}
-	
-	private class Pair {
-		Pair(double value, int index) {
-			this.value = value;
-			this.index = index;
-		}
-		public double value;
-		public int index;
 	}
 }
