@@ -30,7 +30,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		String dirpath = "./resources/refs2_partial";
+		String dirpath = "./resources/refs1_m01";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath, true);
 		IDataBase references = new DataBase(refsFilepaths, StorageType.StoreBoth);	
 
