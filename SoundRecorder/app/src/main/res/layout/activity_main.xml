@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context=".MainActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+    <!--
+         This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows.
+    -->
+    <!--
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/fullscreen_content_controls"
+        style="?metaButtonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        tools:ignore="UselessParent"></LinearLayout>
+    -->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="580dp"
+        android:fitsSystemWindows="true">
+
+        <Button
+            android:id="@+id/left_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:editable="true"
+            android:onClick="switchToRecordScreen"
+            android:text="gauche"
+            app:layout_constraintEnd_toEndOf="@+id/turn_left_button"
+            app:layout_constraintStart_toStartOf="@+id/turn_left_button"
+            app:layout_constraintTop_toBottomOf="@+id/backward_button" />
+
+        <Button
+            android:id="@+id/right_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:editable="true"
+            android:onClick="switchToRecordScreen"
+            android:text="droite"
+            app:layout_constraintEnd_toEndOf="@+id/turn_right_button8"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintStart_toStartOf="@+id/turn_right_button8"
+            app:layout_constraintTop_toBottomOf="@+id/forward_button" />
+
+        <Button
+            android:id="@+id/forward_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:editable="true"
+            android:onClick="switchToRecordScreen"
+            android:text="avance"
+            app:layout_constraintEnd_toEndOf="@+id/left_button"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/left_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/backward_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:editable="true"
+            android:onClick="switchToRecordScreen"
+            android:text="recule"
+            app:layout_constraintEnd_toEndOf="@+id/right_button"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/right_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/stop_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="112dp"
+            android:editable="true"
+            android:onClick="switchToRecordScreen"
+            android:text="arrete_toi"
+            app:layout_constraintEnd_toEndOf="@+id/warning_button"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/turn_right_button8" />
+
+        <Button
+            android:id="@+id/flip_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="20dp"
+            android:editable="true"
+            android:onClick="switchToRecordScreen"
+            android:text="fais_un_flip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/warning_button"
+            app:layout_constraintTop_toBottomOf="@+id/turn_left_button" />
+
+        <Button
+            android:id="@+id/turn_left_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:editable="true"
+            android:onClick="switchToRecordScreen"
+            android:text="tourne_gauche"
+            app:layout_constraintEnd_toEndOf="@+id/stop_button"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toStartOf="@+id/stop_button"
+            app:layout_constraintTop_toBottomOf="@+id/right_button" />
+
+        <Button
+            android:id="@+id/turn_right_button8"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="10dp"
+            android:editable="true"
+            android:onClick="switchToRecordScreen"
+            android:text="tourne_droite"
+            app:layout_constraintEnd_toEndOf="@+id/flip_button"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/flip_button"
+            app:layout_constraintTop_toBottomOf="@+id/left_button" />
+
+        <Button
+            android:id="@+id/warning_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="32dp"
+            android:editable="true"
+            android:onClick="switchToRecordScreen"
+            android:text="etat_durgence"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stop_button" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>
