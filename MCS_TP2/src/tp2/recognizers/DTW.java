@@ -56,7 +56,7 @@ public class DTW extends DTWHelper implements IRecognizer {
 		this.w2 = 1;
 	}
 
-	public ICommand searchCommand(IRecord record, int k) {
+	public ICommand searchCommand(IRecord record) {
 		if (reference.getNbFiles() == 0) {
 			throw new IllegalStateException("Cannot use reference database without any files.");
 		}

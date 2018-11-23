@@ -21,9 +21,8 @@ public class ConfusionMatrix implements IConfusionMatrix {
 		}
 		
 		this.errorRate = 0.f;
-		final int k = 10;
 		for (int i = 0 ; i < tests.getNbFiles() ; ++i) {
-			ICommand commandFound = recognizer.searchCommand(tests.getRecord(i), k);
+			ICommand commandFound = recognizer.searchCommand(tests.getRecord(i));
 			ICommand commandFile = tests.getCommand(i);
 			matrix[commandFound.getIndex()][commandFile.getIndex()]++;
 			

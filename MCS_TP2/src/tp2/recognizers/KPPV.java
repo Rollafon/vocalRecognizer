@@ -16,7 +16,7 @@ import tp2.acp.IACP;
 public class KPPV implements IRecognizer {
 	private IDataBase datas; // Database
 	private int k; // Number of neighbors to consider
-	private MFCCDistance distCalc = new MFCCDistance();
+	private MFCCDistance distCalc;
 	private IACP acp;
 
 	/* Represent a number and a string, used as a distance and a label */
@@ -39,8 +39,10 @@ public class KPPV implements IRecognizer {
 	 * @param label:
 	 *            the array of labels corresponding to the values of database
 	 */
-	public KPPV(IDataBase datas, IACP acp) {
+	public KPPV(IDataBase datas, int k, IACP acp) {
 		this.datas = datas;
+		this.k = k;
+		this.distCalc = new MFCCDistance();
 		this.acp = acp;
 		
 		datas.multiplyData(acp.getNewBase());
@@ -88,8 +90,7 @@ public class KPPV implements IRecognizer {
 	}
 
 	@Override
-	public ICommand searchCommand(IRecord record, int k) {
-		this.k = k;
+	public ICommand searchCommand(IRecord record) {
 		double[] mfccMean = record.getMfccMean();
 		double[][] mfccMean2 = new double[1][mfccMean.length];
 		mfccMean2[0] = mfccMean;

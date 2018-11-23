@@ -45,11 +45,12 @@ public class Main {
 		IConfusionMatrix matrix1 = new ConfusionMatrix(references, tests, dtwRecognizer);
 		System.out.println(matrix1);
 		
-		IRecognizer kppvRecognizer = new KPPV(references, new ACPIdentity(references));
+		final int k = 3;
+		IRecognizer kppvRecognizer = new KPPV(references, k, new ACPIdentity(references));
 		IConfusionMatrix matrix2 = new ConfusionMatrix(references, tests, kppvRecognizer);
 		System.out.println(matrix2);
 		
-		IRecognizer kppvRecognizerACP = new KPPV(references, new ACP(references));
+		IRecognizer kppvRecognizerACP = new KPPV(references, k, new ACP(references));
 		IConfusionMatrix matrix3 = new ConfusionMatrix(references, tests, kppvRecognizerACP);
 		System.out.println(matrix3);
 	}
