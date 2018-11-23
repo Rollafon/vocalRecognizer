@@ -20,12 +20,13 @@ public class Main {
 		}
 		return filepaths;
 	}
-	
+
 	public static void main(String[] args) {
 		String dirpath = "./resources/refs1";
 		List<String> refsFilepaths = getFilepathsFromDir(dirpath);
 		IDataBase references = new DataBase(refsFilepaths);	
-		
+
+		/*
 		String testpath = "./resources/tests1";
 		List<String> testsFilepaths = getFilepathsFromDir(testpath);
 		IDataBase tests = new DataBase(testsFilepaths);
@@ -37,5 +38,14 @@ public class Main {
 		IRecognizer kppvRecognizer = new KPPV(references, Command.All);
 		IConfusionMatrix matrix2 = new ConfusionMatrix(references, tests, kppvRecognizer);
 		System.out.println(matrix2);
+		//*/
+		
+		// TMP : TEST KPPV
+		IRecognizer recognizer = new KPPV(references, Command.All);
+		
+		IRecord record = new Record("./resources/tests1/M02_arretetoi.csv");
+		System.out.println("Commande du nom du fichier = " + record.getCommand());
+		ICommand command = recognizer.searchCommand(record, 3);
+		System.out.println("Commande reconnue = " + command);
 	}
 }

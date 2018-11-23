@@ -90,7 +90,7 @@ public class KPPV implements IRecognizer {
 		Map<String, Integer> classCounter = new HashMap<>();
 		Integer max = new Integer(0);
 		String recognizedLabel = "";
-		for (DistToLab d: kNearest) {
+		for (DistToLab d : kNearest) {
 			if (classCounter.containsKey(d.label)) {
 				Integer i = classCounter.get(d.label) + 1;
 				classCounter.put(d.label, i);
