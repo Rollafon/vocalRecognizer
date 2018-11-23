@@ -38,7 +38,9 @@ public class Main {
 		List<String> testsFilepaths = getFilepathsFromDir(testpath, true);
 		IDataBase tests = new DataBase(testsFilepaths, StorageType.StoreBoth);
 		
+		System.out.println("Dossier de reference = \"" + dirpath + "\"");
 		System.out.println("Nb fichiers de references = " + references.getNbFiles() + "");
+		System.out.println("Dossier de tests = \"" + testpath + "\"");
 		System.out.println("Nb fichiers de tests = " + tests.getNbFiles() + "\n");
 		
 		IRecognizer dtwRecognizer = new DTW(references, new MFCCDistance());
